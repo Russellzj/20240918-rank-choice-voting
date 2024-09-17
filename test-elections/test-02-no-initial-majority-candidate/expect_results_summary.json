@@ -1,0 +1,56 @@
+{
+  "config" : {
+    "contest" : "No Initial Majority Candidate Test",
+    "date" : "",
+    "generatedBy" : "RCTab 1.3.999",
+    "jurisdiction" : "",
+    "office" : ""
+  },
+  "jsonFormatVersion" : "1",
+  "results" : [ {
+    "inactiveBallots" : {
+      "exhaustedChoices" : "0",
+      "overvotes" : "0",
+      "repeatedRankings" : "0",
+      "skippedRankings" : "0"
+    },
+    "round" : 1,
+    "tally" : {
+      "Alice" : "6",
+      "Bob" : "5",
+      "Carlos" : "4"
+    },
+    "tallyResults" : [ {
+      "eliminated" : "Carlos",
+      "transfers" : {
+        "Alice" : "1",
+        "Bob" : "3"
+      }
+    } ],
+    "threshold" : "8"
+  }, {
+    "inactiveBallots" : {
+      "exhaustedChoices" : "0",
+      "overvotes" : "0",
+      "repeatedRankings" : "0",
+      "skippedRankings" : "0"
+    },
+    "round" : 2,
+    "tally" : {
+      "Alice" : "7",
+      "Bob" : "8"
+    },
+    "tallyResults" : [ {
+      "elected" : "Bob",
+      "transfers" : { }
+    } ],
+    "threshold" : "8"
+  } ],
+  "summary" : {
+    "finalThreshold" : "8",
+    "numCandidates" : 3,
+    "numWinners" : 1,
+    "totalNumBallots" : "15",
+    "undervotes" : 0
+  }
+}

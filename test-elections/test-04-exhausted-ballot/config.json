@@ -1,7 +1,7 @@
 {
   "tabulatorVersion" : "1.3.999",
   "outputSettings" : {
-    "contestName" : "Multiple Rounds of Elimination Test",
+    "contestName" : "Edge Case: Exhausted Ballot Test",
     "outputDirectory" : "output",
     "contestDate" : "",
     "contestJurisdiction" : "",
@@ -11,7 +11,7 @@
     "generateCdfJson" : false
   },
   "cvrFileSources" : [ {
-    "filePath" : "/Users/malachi-at-rcvrc/projects/create-rcv-kata-for-20240918-c3-meetup/test-elections/test-03-multiple-rounds-of-elimination/cvr.csv",
+    "filePath" : "/Users/malachi-at-rcvrc/projects/create-rcv-kata-for-20240918-c3-meetup/test-elections/test-04-exhausted-ballot/cvr.csv",
     "contestId" : "",
     "firstVoteColumnIndex" : "2",
     "firstVoteRowIndex" : "2",
@@ -35,18 +35,6 @@
     "aliases" : [ ]
   }, {
     "name" : "Carlos",
-    "excluded" : false,
-    "aliases" : [ ]
-  }, {
-    "name" : "Erin",
-    "excluded" : false,
-    "aliases" : [ ]
-  }, {
-    "name" : "Frank",
-    "excluded" : false,
-    "aliases" : [ ]
-  }, {
-    "name" : "David",
     "excluded" : false,
     "aliases" : [ ]
   } ],

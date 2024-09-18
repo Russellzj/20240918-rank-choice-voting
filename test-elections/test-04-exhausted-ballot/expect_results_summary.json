@@ -1,0 +1,55 @@
+{
+  "config" : {
+    "contest" : "Edge Case: Exhausted Ballot Test",
+    "date" : "",
+    "generatedBy" : "RCTab 1.3.999",
+    "jurisdiction" : "",
+    "office" : ""
+  },
+  "jsonFormatVersion" : "1",
+  "results" : [ {
+    "inactiveBallots" : {
+      "exhaustedChoices" : "0",
+      "overvotes" : "0",
+      "repeatedRankings" : "0",
+      "skippedRankings" : "0"
+    },
+    "round" : 1,
+    "tally" : {
+      "Alice" : "2",
+      "Bob" : "1",
+      "Carlos" : "2"
+    },
+    "tallyResults" : [ {
+      "eliminated" : "Bob",
+      "transfers" : {
+        "Alice" : "1"
+      }
+    } ],
+    "threshold" : "3"
+  }, {
+    "inactiveBallots" : {
+      "exhaustedChoices" : "0",
+      "overvotes" : "0",
+      "repeatedRankings" : "0",
+      "skippedRankings" : "0"
+    },
+    "round" : 2,
+    "tally" : {
+      "Alice" : "3",
+      "Carlos" : "2"
+    },
+    "tallyResults" : [ {
+      "elected" : "Alice",
+      "transfers" : { }
+    } ],
+    "threshold" : "3"
+  } ],
+  "summary" : {
+    "finalThreshold" : "3",
+    "numCandidates" : 3,
+    "numWinners" : 1,
+    "totalNumBallots" : "5",
+    "undervotes" : 0
+  }
+}

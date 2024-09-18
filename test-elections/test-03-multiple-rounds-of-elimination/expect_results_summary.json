@@ -1,0 +1,120 @@
+{
+  "config" : {
+    "contest" : "No Initial Majority Candidate Test",
+    "date" : "",
+    "generatedBy" : "RCTab 1.3.999",
+    "jurisdiction" : "",
+    "office" : ""
+  },
+  "jsonFormatVersion" : "1",
+  "results" : [ {
+    "inactiveBallots" : {
+      "exhaustedChoices" : "0",
+      "overvotes" : "0",
+      "repeatedRankings" : "0",
+      "skippedRankings" : "0"
+    },
+    "round" : 1,
+    "tally" : {
+      "Alice" : "5",
+      "Bob" : "4",
+      "Carlos" : "3",
+      "David" : "2",
+      "Erin" : "1",
+      "Frank" : "0"
+    },
+    "tallyResults" : [ {
+      "eliminated" : "Frank",
+      "transfers" : { }
+    } ],
+    "threshold" : "8"
+  }, {
+    "inactiveBallots" : {
+      "exhaustedChoices" : "0",
+      "overvotes" : "0",
+      "repeatedRankings" : "0",
+      "skippedRankings" : "0"
+    },
+    "round" : 2,
+    "tally" : {
+      "Alice" : "5",
+      "Bob" : "4",
+      "Carlos" : "3",
+      "David" : "2",
+      "Erin" : "1"
+    },
+    "tallyResults" : [ {
+      "eliminated" : "Erin",
+      "transfers" : {
+        "Bob" : "1"
+      }
+    } ],
+    "threshold" : "8"
+  }, {
+    "inactiveBallots" : {
+      "exhaustedChoices" : "0",
+      "overvotes" : "0",
+      "repeatedRankings" : "0",
+      "skippedRankings" : "0"
+    },
+    "round" : 3,
+    "tally" : {
+      "Alice" : "5",
+      "Bob" : "5",
+      "Carlos" : "3",
+      "David" : "2"
+    },
+    "tallyResults" : [ {
+      "eliminated" : "David",
+      "transfers" : {
+        "Alice" : "1",
+        "Bob" : "1"
+      }
+    } ],
+    "threshold" : "8"
+  }, {
+    "inactiveBallots" : {
+      "exhaustedChoices" : "0",
+      "overvotes" : "0",
+      "repeatedRankings" : "0",
+      "skippedRankings" : "0"
+    },
+    "round" : 4,
+    "tally" : {
+      "Alice" : "6",
+      "Bob" : "6",
+      "Carlos" : "3"
+    },
+    "tallyResults" : [ {
+      "eliminated" : "Carlos",
+      "transfers" : {
+        "Bob" : "3"
+      }
+    } ],
+    "threshold" : "8"
+  }, {
+    "inactiveBallots" : {
+      "exhaustedChoices" : "0",
+      "overvotes" : "0",
+      "repeatedRankings" : "0",
+      "skippedRankings" : "0"
+    },
+    "round" : 5,
+    "tally" : {
+      "Alice" : "6",
+      "Bob" : "9"
+    },
+    "tallyResults" : [ {
+      "elected" : "Bob",
+      "transfers" : { }
+    } ],
+    "threshold" : "8"
+  } ],
+  "summary" : {
+    "finalThreshold" : "8",
+    "numCandidates" : 6,
+    "numWinners" : 1,
+    "totalNumBallots" : "15",
+    "undervotes" : 0
+  }
+}

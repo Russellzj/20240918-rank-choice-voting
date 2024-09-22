@@ -14,11 +14,14 @@ public class BallotBox {
             while (sc.hasNextLine()) {
                 int[] votes = Arrays.stream(sc.nextLine().split(",")).mapToInt(Integer::parseInt).toArray();
                 ballots.add(new Ballot(
-                        Arrays.copyOfRange(votes,1, votes.length)));
-                System.out.println(ballots.getLast());
+                        Arrays.copyOfRange(votes, 1, votes.length)));
             }
         } catch (Exception e) {
-            System.out.println("No File Found");
+            System.out.println("File not Found");
         }
+    }
+
+    public List<Ballot> getBallots() {
+        return ballots;
     }
 }

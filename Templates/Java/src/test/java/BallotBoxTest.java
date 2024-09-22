@@ -2,6 +2,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class BallotBoxTest {
     BallotBox ballotBox;
@@ -14,10 +19,10 @@ public class BallotBoxTest {
         BallotBox noFile = new BallotBox("");
     }
     @Test
-    @DisplayName("Fill Ballets With CSV")
+    @DisplayName("Fill Ballets With CSV and Check that 1st ballot is correct")
     public void testFillBallotBox() {
         ballotBox = new BallotBox(csvTest1);
-
+        assert(ballotBox.getBallots().get(0).getChoice() == 1);
     }
 
 }

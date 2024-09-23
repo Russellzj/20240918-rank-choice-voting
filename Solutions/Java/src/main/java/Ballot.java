@@ -9,7 +9,7 @@ public class Ballot {
     }
 
     public int getChoice() {
-        return votes[voteLocation];
+        return votes[voteLocation++];
     }
 
 }

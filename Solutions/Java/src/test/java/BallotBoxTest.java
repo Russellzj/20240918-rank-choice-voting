@@ -26,6 +26,12 @@ public class BallotBoxTest {
         assert(ballotBox.getBallots().getFirst().getChoice() == 1);
     }
 
+    @Test
+    public void testCandidates() {
+        ballotBox = new BallotBox(csvTest2);
+        assert(ballotBox.getCandidates().trim().equals("Alice Bob Carlos"));
+    }
+
     @ParameterizedTest
     @DisplayName("Find correct victor")
     @CsvSource(value = {csvTest1 + ",Vim", csvTest2 + ",Bob"})

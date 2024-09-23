@@ -18,11 +18,22 @@ public class BallotBoxTest {
     public void testBallotBox() {
         BallotBox noFile = new BallotBox("");
     }
+
     @Test
     @DisplayName("Fill Ballets With CSV and Check that 1st ballot is correct")
     public void testFillBallotBox() {
         ballotBox = new BallotBox(csvTest1);
-        assert(ballotBox.getBallots().get(0).getChoice() == 1);
+        assert(ballotBox.getBallots().getFirst().getChoice() == 1);
     }
+
+    @Test
+    @DisplayName("Find correct victor")
+    public void testVictor() {
+        ballotBox = new BallotBox(csvTest1);
+        ballotBox.assignVotes();
+        String winner = ballotBox.getWinner();
+        assert(winner.equals("Vim"));
+    }
+
 
 }

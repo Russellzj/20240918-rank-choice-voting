@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,7 +13,9 @@ public class BallotBox {
 
     public BallotBox (String file) {
         try (Scanner sc = new Scanner(new File(file))) {
-            String[] names = Arrays.copyOfRange(sc.nextLine().split(","), 1, 3);
+            String[] namesSplit = sc.nextLine().split(",");
+            String[] names = Arrays.copyOfRange(namesSplit, 1, namesSplit.length);
+
             for (String name : names) {
                 candidates.add(new Candidate(name));
             }
@@ -21,14 +24,21 @@ public class BallotBox {
                 ballots.add(new Ballot(
                         Arrays.copyOfRange(votes, 1, votes.length)));
             }
-        } catch (Exception e) {
-            System.out.println("File not Found");
-            return;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
     public List<Ballot> getBallots() {
         return ballots;
+    }
+
+    public String getCandidates() {
+        StringBuilder importedCandidates = new StringBuilder();
+        for (Candidate candidate : candidates) {
+            importedCandidates.append(candidate.getName()).append(" ");
+        }
+        return importedCandidates.toString();
     }
 
     public void assignVotes () {
@@ -37,11 +47,7 @@ public class BallotBox {
             return;
         }
         for (Ballot b : ballots) {
-            if (b.getChoice() == 1) {
-                candidates.get(0).addVote();
-            } else {
-                candidates.get(1).addVote();
-            }
+            candidates.get(b.getChoice() - 1).addVote();
         }
     }
 

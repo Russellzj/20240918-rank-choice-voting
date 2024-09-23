@@ -1,8 +1,8 @@
 import java.util.Arrays;
 
 public class Ballot {
-    int voteLocation = 0;
-    int[] votes;
+    private int voteLocation = 0;
+    private int[] votes;
 
     public Ballot(int[] votes) {
         this.votes = votes;

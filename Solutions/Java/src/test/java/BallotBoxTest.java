@@ -18,11 +18,13 @@ public class BallotBoxTest {
 
     @ParameterizedTest
     @DisplayName("Find correct winner")
-    @CsvSource(value = {csvTest1 + ",Vim"})//, csvTest2 + ",Bob", csvTest4 + ",Alice"})
+    @CsvSource(value = {csvTest1 + ",Vim", csvTest2 + ",Bob", csvTest3 + ",Bob"})
     public void testWinning(String file, String expectedWinner) {
         ballotBox = new BallotBox(file);
         ballotBox.setVotes();
-        String winner = ballotBox.getWinner();
+        String winner = ballotBox.getWinnerName();
+        System.out.println("Winner: " + winner);
+        System.out.println("Rounds: " + ballotBox.round);
         assert (winner.equals(expectedWinner));
     }
 }

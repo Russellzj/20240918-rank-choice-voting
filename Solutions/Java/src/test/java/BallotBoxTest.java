@@ -18,7 +18,7 @@ public class BallotBoxTest {
 
     @ParameterizedTest
     @DisplayName("Find correct winner")
-    @CsvSource(value = {csvTest1 + ",Vim", csvTest2 + ",Bob", csvTest3 + ",Bob"})
+    @CsvSource(value = {csvTest1 + ",Vim", csvTest2 + ",Bob", csvTest3 + ",Bob", csvTest4 + ",Alice"})
     public void testWinning(String file, String expectedWinner) {
         ballotBox = new BallotBox(file);
         ballotBox.setVotes();

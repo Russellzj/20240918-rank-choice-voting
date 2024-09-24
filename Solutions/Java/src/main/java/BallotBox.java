@@ -1,23 +1,20 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class BallotBox {
-    //Holds candidate's names and total votes
-    private List<Candidate> candidates = new ArrayList<>();
+    //Holds candidate's ID, names and total votes
+    private Map<Integer, Candidate> candidates = new HashMap<>();
+
     //All ballots are initially stored here
     private List<Ballot> ballots= new ArrayList<>();
 
     public BallotBox (String file) {
         try (Scanner sc = new Scanner(new File(file))) {
             String[] namesSplit = sc.nextLine().split(",");
-            String[] names = Arrays.copyOfRange(namesSplit, 1, namesSplit.length);
 
-            for (String name : names) {
-                candidates.add(new Candidate(name));
+            for (int i = 1; i < namesSplit.length; i++) {
+                candidates.put(i, new Candidate(namesSplit[i], i));
             }
             while (sc.hasNextLine()) {
                 int[] votes = Arrays.stream(sc.nextLine().split(",")).mapToInt(Integer::parseInt).toArray();
@@ -28,32 +25,10 @@ public class BallotBox {
             e.printStackTrace();
         }
     }
-
-    public List<Ballot> getBallots() {
-        return ballots;
-    }
-
-    public String getCandidates() {
-        StringBuilder importedCandidates = new StringBuilder();
-        for (Candidate candidate : candidates) {
-            importedCandidates.append(candidate.getName()).append(" ");
-        }
-        return importedCandidates.toString();
-    }
-
-    public void assignVotes () {
-        if (ballots.size() == 0) {
-            System.out.println("No ballots found");
-            return;
-        }
-        for (Ballot b : ballots) {
-            candidates.get(b.getChoice() - 1).addVote();
-        }
-    }
-
     public String getWinner() {
-        List<Candidate> sortedCandides = candidates;
+        List<Candidate> sortedCandides = new ArrayList<>();
+        sortedCandides.addAll(candidates.values());
         sortedCandides.sort((a, b) -> {return -1 * a.compareTo(b);});
-        return candidates.getFirst().getName();
+        return sortedCandides.getFirst().getName();
     }
 }

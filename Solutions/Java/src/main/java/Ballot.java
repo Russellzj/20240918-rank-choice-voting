@@ -11,18 +11,20 @@ public class Ballot {
 
     public int getChoice(Set<Integer> eliminatedIds) {
         int choice = 1;
-        for (int vote : votes) {
-            if (vote == currentRank) {
-                if (eliminatedIds.contains(choice))
-                    currentRank++;
-                else {
-                    return choice;
+        while (true) {
+            for (int vote : votes) {
+                if (vote == currentRank) {
+                    if (eliminatedIds.contains(choice))
+                        currentRank++;
+                    else {
+                        return choice;
+                    }
+                } else {
+                    choice++;
                 }
-            } else {
-                choice++;
             }
+            currentRank++;
         }
-        return choice;
     }
 
     public void incrementCurrentRank() {

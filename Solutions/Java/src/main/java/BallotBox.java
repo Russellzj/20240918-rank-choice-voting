@@ -21,7 +21,17 @@ public class BallotBox {
                 candidates.put(i, new Candidate(namesSplit[i], i));
             }
             while (sc.hasNextLine()) {
-                int[] votes = Arrays.stream(sc.nextLine().split(",")).mapToInt(Integer::parseInt).toArray();
+
+                String[] importedVotes = sc.nextLine().split(",");
+                int[] votes = new int[importedVotes.length];
+                for (int i = 0; i < votes.length; i++) {
+                    if (importedVotes[i].isBlank()) {
+                        votes[i] = 0;
+                    } else {
+                        votes[i] = Integer.parseInt(importedVotes[i]);
+                    }
+                }
+
                 //ignores the first element of the ballot since we do not need ballot ID
                 ballots.add(new Ballot(Arrays.copyOfRange(votes, 1, votes.length)));
             }

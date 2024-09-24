@@ -24,6 +24,10 @@ public class Candidate implements Comparable<Candidate>{
         this.ballots.add(ballot);
     }
 
+    public List<Ballot> getBallots() {
+        return ballots;
+    }
+
     public int getTotalBallots() {
         return ballots.size();
     }

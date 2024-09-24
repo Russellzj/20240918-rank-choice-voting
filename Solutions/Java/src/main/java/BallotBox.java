@@ -10,8 +10,9 @@ public class BallotBox {
     private List<Ballot> ballots= new ArrayList<>();
 
     //Holds IDs of candidates that have been removed
-    Set<Integer> removedIds = new HashSet<>();
+    Set<Integer> eliminatedIds = new HashSet<>();
 
+    int round = 1;
     public BallotBox (String file) {
         try (Scanner sc = new Scanner(new File(file))) {
             String[] namesSplit = sc.nextLine().split(",");
@@ -31,23 +32,40 @@ public class BallotBox {
 
     public void setVotes () {
         for(Ballot ballot : ballots) {
-            candidates.get(ballot.getChoice()).addBallot(ballot);
+            int choice = ballot.getChoice(eliminatedIds);
+            candidates.get(choice).addBallot(ballot);
         }
     }
 
-    public String getWinner() {
+    public int redistributeVotes (int removeID) {
+        ++round;
+        eliminatedIds.add(removeID);
+        List<Ballot> ballotsToRedistribute = candidates.get(removeID).getBallots();
+        candidates.remove(removeID);
+        for(int i = 0; i < ballotsToRedistribute.size(); i++) {
+            ballotsToRedistribute.get(i).incrementCurrentRank();
+            if (ballotsToRedistribute.get(i).getChoice(eliminatedIds) == removeID) {
+                System.out.println("BAD BALLOT CHOICE");
+            } else {
+                candidates.get(ballotsToRedistribute.get(i).getChoice(eliminatedIds)).
+                        addBallot(ballotsToRedistribute.get(i));
+            }
+        }
+        return getWinner();
+    }
+
+    public int getWinner() {
         List<Candidate> sortedCandidates = new ArrayList<>();
         sortedCandidates.addAll(candidates.values());
         sortedCandidates.sort((a, b) -> {return -1 * a.compareTo(b);});
         if (sortedCandidates.getFirst().getTotalBallots() * 2 > ballots.size()) {
-            return sortedCandidates.getFirst().getName();
+            return sortedCandidates.getFirst().getId();
+        } else {
+            return redistributeVotes(sortedCandidates.getLast().getId());
         }
-
-        return "Nope";
     }
 
-    public void removeCandidate(int id) {
-        removedIds.add(id);
-
+    public String getWinnerName() {
+        return candidates.get(getWinner()).getName();
     }
 }

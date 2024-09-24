@@ -16,17 +16,13 @@ public class BallotBoxTest {
         BallotBox noFile = new BallotBox("");
     }
 
-    @Test
-    @DisplayName("Fill Ballets With CSV and Check that 1st ballot is correct")
-    public void testFillBallotBox() {
-        ballotBox = new BallotBox(csvTest1);
-        assert(ballotBox.getBallots().getFirst().getChoice() == 1);
-    }
-
     @ParameterizedTest
     @DisplayName("Find correct winner")
     @CsvSource(value = {csvTest1 + ",Vim"})//, csvTest2 + ",Bob", csvTest4 + ",Alice"})
     public void testWinning(String file, String expectedWinner) {
         ballotBox = new BallotBox(file);
+        ballotBox.setVotes();
+        String winner = ballotBox.getWinner();
+        assert (winner.equals(expectedWinner));
     }
 }

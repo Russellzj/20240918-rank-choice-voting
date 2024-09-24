@@ -18,13 +18,20 @@ public class BallotBox {
             }
             while (sc.hasNextLine()) {
                 int[] votes = Arrays.stream(sc.nextLine().split(",")).mapToInt(Integer::parseInt).toArray();
-                ballots.add(new Ballot(
-                        Arrays.copyOfRange(votes, 1, votes.length)));
+                //ignores the first element of the ballot since we do not need ballot ID
+                ballots.add(new Ballot(Arrays.copyOfRange(votes, 1, votes.length)));
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
+
+    public void setVotes () {
+        for(Ballot ballot : ballots) {
+            candidates.get(ballot.getChoice()).addVote();
+        }
+    }
+
     public String getWinner() {
         List<Candidate> sortedCandides = new ArrayList<>();
         sortedCandides.addAll(candidates.values());

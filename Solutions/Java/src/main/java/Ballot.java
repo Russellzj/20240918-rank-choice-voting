@@ -1,7 +1,5 @@
-import java.util.Arrays;
-
 public class Ballot {
-    private int voteLocation = 0;
+    private int currentRank = 1;
     private int[] votes;
 
     public Ballot(int[] votes) {
@@ -9,7 +7,16 @@ public class Ballot {
     }
 
     public int getChoice() {
-        return votes[voteLocation++];
+        int choice = 1;
+        for (int vote : votes) {
+            if (vote == currentRank) {
+                return choice;
+            } else {
+                choice++;
+            }
+        }
+        return choice;
     }
+
 
 }

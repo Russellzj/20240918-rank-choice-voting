@@ -1,8 +1,11 @@
+import java.util.ArrayList;
+import java.util.List;
+
 //Class to hold voter names and their assigned votes
 public class Candidate implements Comparable<Candidate>{
     private String name;
-    private int votes;
     private int id;
+    private List<Ballot> ballots = new ArrayList<>();
 
     public Candidate (String name, int id) {
         this.name = name;
@@ -17,18 +20,18 @@ public class Candidate implements Comparable<Candidate>{
         return id;
     }
 
-    public void addVote() {
-        votes++;
+    public void addBallot(Ballot ballot) {
+        this.ballots.add(ballot);
     }
 
-    public int getVotes() {
-        return votes;
+    public int getTotalBallots() {
+        return ballots.size();
     }
 
     //Compares Candidate's votes to another Candidate's
     @Override
     public int compareTo(Candidate otherCandidate) {
-        return Integer.compare(votes, otherCandidate.votes);
+        return Integer.compare(getTotalBallots(), otherCandidate.getTotalBallots());
 
     }
 }

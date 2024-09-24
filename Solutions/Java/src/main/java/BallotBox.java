@@ -9,6 +9,9 @@ public class BallotBox {
     //All ballots are initially stored here
     private List<Ballot> ballots= new ArrayList<>();
 
+    //Holds IDs of candidates that have been removed
+    Set<Integer> removedIds = new HashSet<>();
+
     public BallotBox (String file) {
         try (Scanner sc = new Scanner(new File(file))) {
             String[] namesSplit = sc.nextLine().split(",");
@@ -28,14 +31,23 @@ public class BallotBox {
 
     public void setVotes () {
         for(Ballot ballot : ballots) {
-            candidates.get(ballot.getChoice()).addVote();
+            candidates.get(ballot.getChoice()).addBallot(ballot);
         }
     }
 
     public String getWinner() {
-        List<Candidate> sortedCandides = new ArrayList<>();
-        sortedCandides.addAll(candidates.values());
-        sortedCandides.sort((a, b) -> {return -1 * a.compareTo(b);});
-        return sortedCandides.getFirst().getName();
+        List<Candidate> sortedCandidates = new ArrayList<>();
+        sortedCandidates.addAll(candidates.values());
+        sortedCandidates.sort((a, b) -> {return -1 * a.compareTo(b);});
+        if (sortedCandidates.getFirst().getTotalBallots() * 2 > ballots.size()) {
+            return sortedCandidates.getFirst().getName();
+        }
+
+        return "Nope";
+    }
+
+    public void removeCandidate(int id) {
+        removedIds.add(id);
+
     }
 }

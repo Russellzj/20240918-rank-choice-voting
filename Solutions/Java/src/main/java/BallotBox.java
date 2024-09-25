@@ -42,7 +42,7 @@ public class BallotBox {
 
     public void setVotes () {
         for(Ballot ballot : ballots) {
-            int choice = ballot.getChoice(eliminatedIds);
+            int choice = ballot.getVote(eliminatedIds);
             candidates.get(choice).addBallot(ballot);
         }
     }
@@ -54,10 +54,9 @@ public class BallotBox {
         candidates.remove(removeID);
         for(int i = 0; i < ballotsToRedistribute.size(); i++) {
             ballotsToRedistribute.get(i).incrementCurrentRank();
-            if (ballotsToRedistribute.get(i).getChoice(eliminatedIds) == removeID) {
-                System.out.println("BAD BALLOT CHOICE");
-            } else {
-                candidates.get(ballotsToRedistribute.get(i).getChoice(eliminatedIds)).
+            int voteToDistribute = ballotsToRedistribute.get(i).getVote(eliminatedIds);
+            if (voteToDistribute != 0) {
+                candidates.get(ballotsToRedistribute.get(i).getVote(eliminatedIds)).
                         addBallot(ballotsToRedistribute.get(i));
             }
         }
@@ -68,7 +67,8 @@ public class BallotBox {
         List<Candidate> sortedCandidates = new ArrayList<>();
         sortedCandidates.addAll(candidates.values());
         sortedCandidates.sort((a, b) -> {return -1 * a.compareTo(b);});
-        if (sortedCandidates.getFirst().getTotalBallots() * 2 > ballots.size()) {
+        if (sortedCandidates.getFirst().getTotalBallots() * 2 > ballots.size() ||
+                sortedCandidates.size() <= 2) {
             return sortedCandidates.getFirst().getId();
         } else {
             return redistributeVotes(sortedCandidates.getLast().getId());

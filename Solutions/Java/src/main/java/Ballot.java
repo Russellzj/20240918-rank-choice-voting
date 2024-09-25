@@ -1,4 +1,3 @@
-import java.util.HashSet;
 import java.util.Set;
 
 public class Ballot {
@@ -9,23 +8,21 @@ public class Ballot {
         this.votes = votes;
     }
 
-    public int getChoice(Set<Integer> eliminatedIds) {
-        int choice = 1;
-        while (true) {
-            for (int vote : votes) {
+    public int getVote(Set<Integer> eliminatedIds) {
+            for (int voteId = 1; voteId <= votes.length; voteId++) {
+                int vote = votes[voteId - 1];
                 if (vote == currentRank) {
-                    if (eliminatedIds.contains(choice))
+                    if (!eliminatedIds.contains(voteId)) {
+                        return voteId;
+                    } else {
                         currentRank++;
-                    else {
-                        return choice;
+                        voteId = 1;
                     }
-                } else {
-                    choice++;
                 }
             }
-            currentRank++;
+            return 0;
         }
-    }
+
 
     public void incrementCurrentRank() {
         currentRank++;

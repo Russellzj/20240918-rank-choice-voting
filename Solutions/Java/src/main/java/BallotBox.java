@@ -5,13 +5,14 @@ import java.util.*;
 public class BallotBox {
     //Holds candidate's ID, names and total votes
     private Map<Integer, Candidate> candidates = new HashMap<>();
-
     //Holds IDs of candidates that have been removed
     private Set<Integer> eliminatedIds = new HashSet<>();
-
+    //Counts the total votes - created with object
     private int totalVotes = 0;
-
+    //Counts the number of rounds
     int round = 1;
+
+    //Setups BallotBox taking in the CSV file and assigning the values provided to BallotBox variables
     public BallotBox (String file) {
         try (Scanner sc = new Scanner(new File(file))) {
             String[] namesSplit = sc.nextLine().split(",");
@@ -52,6 +53,7 @@ public class BallotBox {
         }
     }
 
+    //Assigns provided ballots to their selected candidates
     public void setVotes (List<Ballot> ballots) {
         for (Ballot ballot : ballots) {
             int id = ballot.getRankID(eliminatedIds);
@@ -61,6 +63,7 @@ public class BallotBox {
         }
     }
 
+    //Eliminates provided ID and redistributes the votes from the eliminated candidate
     public int redistributeVotes (int removeID) {
         ++round;
         eliminatedIds.add(removeID);
@@ -70,16 +73,16 @@ public class BallotBox {
         return getWinner();
     }
 
+    //Finds the winner running through all the elimination rounds until a winner has more than 50% of the vote or there
+    // are only 2 candidate left
     public int getWinner() {
         //Adds Candidates to a ArrayList for sorting by ballots size
-        List<Candidate> sortedCandidates = new ArrayList<>();
-        sortedCandidates.addAll(candidates.values());
+        List<Candidate> sortedCandidates = new ArrayList<>(candidates.values());
         sortedCandidates.sort((a, b) -> {return -1 * a.compareTo(b);});
         if (sortedCandidates.getFirst().getTotalBallots() * 2 > totalVotes ||
                 sortedCandidates.size() <= 2) {
             return sortedCandidates.getFirst().getId();
         } else {
-
             return redistributeVotes(sortedCandidates.getLast().getId());
         }
     }

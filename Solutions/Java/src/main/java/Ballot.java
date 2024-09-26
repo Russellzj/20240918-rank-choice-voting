@@ -14,6 +14,8 @@ public class Ballot {
         }
     }
 
+    //Retrieves the ID of the current rank, if rank is not found or id is eliminated it proceeds to the next rank
+    //If not is found the method returns 0
     public int getRankID(Set<Integer> eliminatedIds) {
         while (currentRank <= votes.size()) {
             if (votes.containsKey(currentRank)) {
@@ -25,10 +27,4 @@ public class Ballot {
         }
         return 0;
     }
-
-    public void incrementCurrentRank() {
-        currentRank++;
-    }
-
-
 }

@@ -1,28 +1,30 @@
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 public class Ballot {
     private int currentRank = 1;
-    private int[] votes;
+
+    //The key is the rank and the value is vote ID
+    private Map<Integer, Integer> votes = new HashMap<>();
 
     public Ballot(int[] votes) {
-        this.votes = votes;
+        for (int i = 0; i < votes.length; i++) {
+            this.votes.put(votes[i], i + 1);
+        }
     }
 
-    public int getVote(Set<Integer> eliminatedIds) {
-            for (int voteId = 1; voteId <= votes.length; voteId++) {
-                int vote = votes[voteId - 1];
-                if (vote == currentRank) {
-                    if (!eliminatedIds.contains(voteId)) {
-                        return voteId;
-                    } else {
-                        currentRank++;
-                        voteId = 1;
-                    }
+    public int getRankID(Set<Integer> eliminatedIds) {
+        while (currentRank <= votes.size()) {
+            if (votes.containsKey(currentRank)) {
+                if (!eliminatedIds.contains(votes.get(currentRank))) {
+                    return votes.get(currentRank);
                 }
             }
-            return 0;
+            currentRank++;
         }
-
+        return 0;
+    }
 
     public void incrementCurrentRank() {
         currentRank++;

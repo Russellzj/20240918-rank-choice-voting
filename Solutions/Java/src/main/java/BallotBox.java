@@ -6,11 +6,10 @@ public class BallotBox {
     //Holds candidate's ID, names and total votes
     private Map<Integer, Candidate> candidates = new HashMap<>();
 
-    //All ballots are initially stored here
-    private List<Ballot> ballots= new ArrayList<>();
-
     //Holds IDs of candidates that have been removed
-    Set<Integer> eliminatedIds = new HashSet<>();
+    private Set<Integer> eliminatedIds = new HashSet<>();
+
+    private int totalVotes = 0;
 
     int round = 1;
     public BallotBox (String file) {
@@ -19,6 +18,9 @@ public class BallotBox {
             for (int i = 1; i < namesSplit.length; i++) {
                 candidates.put(i, new Candidate(namesSplit[i], i));
             }
+            //All ballots are initially stored here
+            List<Ballot> ballots= new ArrayList<>();
+
             while (sc.hasNextLine()) {
                 String[] importedVotes = sc.nextLine().split(",");
                 int[] votes = new int[importedVotes.length];
@@ -41,17 +43,21 @@ public class BallotBox {
                 if (isValid) {
                     //ignores the first element of the ballot since we do not need ballot ID
                     ballots.add(new Ballot(Arrays.copyOfRange(votes, 1, votes.length)));
+                    ++totalVotes;
                 }
             }
+            setVotes(ballots);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    public void setVotes () {
-        for(Ballot ballot : ballots) {
-            int choice = ballot.getVote(eliminatedIds);
-            candidates.get(choice).addBallot(ballot);
+    public void setVotes (List<Ballot> ballots) {
+        for (Ballot ballot : ballots) {
+            int id = ballot.getRankID(eliminatedIds);
+            if (id != 0) {
+                candidates.get(id).addBallot(ballot);
+            }
         }
     }
 
@@ -60,25 +66,20 @@ public class BallotBox {
         eliminatedIds.add(removeID);
         List<Ballot> ballotsToRedistribute = candidates.get(removeID).getBallots();
         candidates.remove(removeID);
-        for(int i = 0; i < ballotsToRedistribute.size(); i++) {
-            ballotsToRedistribute.get(i).incrementCurrentRank();
-            int voteToDistribute = ballotsToRedistribute.get(i).getVote(eliminatedIds);
-            if (voteToDistribute != 0) {
-                candidates.get(ballotsToRedistribute.get(i).getVote(eliminatedIds)).
-                        addBallot(ballotsToRedistribute.get(i));
-            }
-        }
+        setVotes(ballotsToRedistribute);
         return getWinner();
     }
 
     public int getWinner() {
+        //Adds Candidates to a ArrayList for sorting by ballots size
         List<Candidate> sortedCandidates = new ArrayList<>();
         sortedCandidates.addAll(candidates.values());
         sortedCandidates.sort((a, b) -> {return -1 * a.compareTo(b);});
-        if (sortedCandidates.getFirst().getTotalBallots() * 2 > ballots.size() ||
+        if (sortedCandidates.getFirst().getTotalBallots() * 2 > totalVotes ||
                 sortedCandidates.size() <= 2) {
             return sortedCandidates.getFirst().getId();
         } else {
+
             return redistributeVotes(sortedCandidates.getLast().getId());
         }
     }
